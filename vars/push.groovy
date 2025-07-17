@@ -1,10 +1,10 @@
-def call(string image, string user-image){
+def call(string image,String imagetag, string user){
    withCredentials([usernamePassword(
                     credentialsId:"Dockerhubcred",
                     usernameVariable: "User",
                     passwordVariable: "Pass")]){
                 sh "docker login -u ${env.User} -p ${env.Pass} "
-                sh "docker image tag ${image} ${user-image}"
-                sh "docker push ${user-image}"
+                sh "docker image tag ${image}:${imagetag} ${user}/${image}:${imagetag}"
+                sh "docker push ${user}/${image}:${imagetag}"
                     }
 }
